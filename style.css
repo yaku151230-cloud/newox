@@ -1,0 +1,48 @@
+@media (max-width: 700px) {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  #board {
+    width: 98vw !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+  #board table {
+    width: 98vw !important;
+    height: 98vw !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    font-size: 7vw !important;
+  }
+  #board td {
+    width: 16vw !important;
+    height: 16vw !important;
+    font-size: 7vw !important;
+    padding: 0 !important;
+  }
+  #side-left, #side-right {
+    min-width: 0 !important;
+    max-width: 100vw !important;
+    align-items: center !important;
+    margin-bottom: 16px;
+  }
+  #side-left h1 {
+    font-size: 6vw !important;
+    margin-bottom: 16px !important;
+  }
+  #turn-info {
+    font-size: 5vw !important;
+  }
+  #rule-box {
+    font-size: 4vw !important;
+    max-width: 98vw !important;
+    padding: 2vw !important;
+  }
+  #side-right button {
+    font-size: 6vw !important;
+    width: 14vw !important;
+    height: 14vw !important;
+    margin-bottom: 2vw !important;
+  }
+}
