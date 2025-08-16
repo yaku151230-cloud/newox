@@ -1,10 +1,11 @@
 {
-  "dependencies": {
-    "next": "^15.4.6",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
-  },
+  "name": "newox-game",
+  "version": "1.0.0",
+  "description": "〇×ゲーム",
   "scripts": {
-    "dev": "next dev"
-  }
+    "start": "python3 -m http.server 8000"
+  },
+  "keywords": ["game", "marubatu", "tic-tac-toe"],
+  "author": "",
+  "license": "MIT"
 }
