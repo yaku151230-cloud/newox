@@ -66,10 +66,7 @@ cells.forEach(cell => {
         board[row][col] = turn;
         cell.textContent = turn;
         if (checkWin(turn)) {
-            setTimeout(() => {
-                showResult(`${turn}の勝利！`);
-                gameOver = true;
-            }, 500);
+            highlightWin(turn);
             return;
         }
         if (checkThree(row, col)) {
@@ -171,143 +168,254 @@ function isDraw() {
     return board.flat().every(cell => cell !== '');
 }
 
-// 重力ボタン
+// ===== 重力ボタン（IDは既存のまま使用） =====
 Object.entries(gravityBtns).forEach(([dir, btn]) => {
-    btn.addEventListener('click', () => {
-        if (gameOver || gravityUsed[turn]) return;
-        applyGravity(dir);
-        gravityUsed[turn] = true;
-        if (checkWin(turn)) {
-            showResult(`${turn}の勝利！（重力使用）`);
-            gameOver = true;
-            return;
-        }
-        if (isDraw()) {
-            showResult('ドロー！（重力使用）');
-            gameOver = true;
-            return;
-        }
-        turn = turn === '〇' ? '×' : '〇';
-        turnInfo.textContent = `現在のターン: ${turn}`;
-    });
+  btn.addEventListener('click', () => {
+    if (gameOver || gravityUsed[turn]) return;
+
+    gravityUsed[turn] = true; // このゲーム中に各自1回だけ
+
+    // 重力の一連処理が完了したら呼ばれる
+    const done = () => {
+      if (gameOver) return; // 途中で決着していれば何もしない
+
+      if (isDraw()) {
+        showResult('ドロー！（重力使用）');
+        gameOver = true;
+        return;
+      }
+      // 勝敗が出ていなければターン交代
+      turn = (turn === '〇') ? '×' : '〇';
+      turnInfo.textContent = `現在のターン: ${turn}`;
+    };
+
+    applyGravity(dir, done);
+  });
 });
 
-// 重力処理
-function applyGravity(direction) {
-    function gravityStep() {
-        let changed = false;
-        if (direction === 'down') {
-            for (let c = 0; c < SIZE; c++) {
-                let stack = [];
-                for (let r = SIZE - 1; r >= 0; r--) {
-                    if (board[r][c] !== '') stack.push(board[r][c]);
+// ===== 重力処理（勝利→三つ消しカスケード） =====
+function applyGravity(direction, onComplete) {
+  if (gameOver) return;
+
+  gravityStep(direction);
+
+tripleCascade(() => {
+  // 三つ消しが全て終わった後に判定
+  if (isDraw()) {
+    showResult('ドロー！（重力使用）');
+    gameOver = true;
+    return;
+  }
+  if (checkWinCells('〇')) { highlightWin('〇'); return; }
+  if (checkWinCells('×')) { highlightWin('×'); return; }
+
+  if (!gameOver && typeof onComplete === 'function') onComplete();
+});
+
+
+  // ====== ユーティリティ群 ======
+
+  function checkWinCells(player) {
+    const directions = [
+      { dr: 0, dc: 1 },
+      { dr: 1, dc: 0 },
+      { dr: 1, dc: 1 },
+      { dr: 1, dc: -1 }
+    ];
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        if (board[r][c] !== player) continue;
+        for (let dir of directions) {
+          let cells = [{ r, c }];
+          let nr = r + dir.dr;
+          let nc = c + dir.dc;
+          while (nr >= 0 && nr < SIZE && nc >= 0 && nc < SIZE && board[nr][nc] === player) {
+            cells.push({ r: nr, c: nc });
+            nr += dir.dr;
+            nc += dir.dc;
+          }
+          if (cells.length >= 4) return cells;
+        }
+      }
+    }
+    return null;
+  }
+
+  function showWin(player) {
+    const cells = checkWinCells(player);
+    if (cells) {
+      cells.forEach(({ r, c }) => {
+        const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+        td.style.background = '#00f'; // 青
+        td.style.color = '#fff';
+      });
+    }
+    setTimeout(() => {
+      showResult(`${player}の勝利！（重力使用）`);
+      gameOver = true;
+    }, 500);
+  }
+
+  function checkWinAfterDelayEnd() {
+    if (gameOver) return true;
+    if (getWinCells('〇')) { highlightWin('〇'); return true; }
+    if (getWinCells('×')) { highlightWin('×'); return true; }
+    return false;
+  }
+
+  function gravityStep(direction) {
+    if (direction === 'down') {
+      for (let c = 0; c < SIZE; c++) {
+        const stack = [];
+        for (let r = SIZE - 1; r >= 0; r--) if (board[r][c] !== '') stack.push(board[r][c]);
+        for (let r = SIZE - 1; r >= 0; r--) {
+          const val = stack[SIZE - 1 - r] || '';
+          board[r][c] = val;
+          const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+          td.textContent = val;
+          td.style.color = '#000';
+        }
+      }
+    } else if (direction === 'up') {
+      for (let c = 0; c < SIZE; c++) {
+        const stack = [];
+        for (let r = 0; r < SIZE; r++) if (board[r][c] !== '') stack.push(board[r][c]);
+        for (let r = 0; r < SIZE; r++) {
+          const val = stack[r] || '';
+          board[r][c] = val;
+          const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+          td.textContent = val;
+          td.style.color = '#000';
+        }
+      }
+    } else if (direction === 'left') {
+      for (let r = 0; r < SIZE; r++) {
+        const stack = [];
+        for (let c = 0; c < SIZE; c++) if (board[r][c] !== '') stack.push(board[r][c]);
+        for (let c = 0; c < SIZE; c++) {
+          const val = stack[c] || '';
+          board[r][c] = val;
+          const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+          td.textContent = val;
+          td.style.color = '#000';
+        }
+      }
+    } else if (direction === 'right') {
+      for (let r = 0; r < SIZE; r++) {
+        const stack = [];
+        for (let c = SIZE - 1; c >= 0; c--) if (board[r][c] !== '') stack.push(board[r][c]);
+        for (let c = SIZE - 1; c >= 0; c--) {
+          const val = stack[SIZE - 1 - c] || '';
+          board[r][c] = val;
+          const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+          td.textContent = val;
+          td.style.color = '#000';
+        }
+      }
+    }
+  }
+
+  function collectAllTriples() {
+    const dirs = [
+      { dr: 0, dc: 1 },
+      { dr: 1, dc: 0 },
+      { dr: 1, dc: 1 },
+      { dr: 1, dc: -1 }
+    ];
+    const set = new Set();
+    for (let r = 0; r < SIZE; r++) {
+      for (let c = 0; c < SIZE; c++) {
+        const p = board[r][c];
+        if (!p) continue;
+        for (const { dr, dc } of dirs) {
+          const r1 = r + dr, c1 = c + dc;
+          const r2 = r + 2*dr, c2 = c + 2*dc;
+          if (r2 < 0 || r2 >= SIZE || c2 < 0 || c2 >= SIZE) continue;
+          if (board[r1][c1] === p && board[r2][c2] === p) {
+            set.add(`${r},${c}`);
+            set.add(`${r1},${c1}`);
+            set.add(`${r2},${c2}`);
+          }
+        }
+      }
+    }
+    return Array.from(set).map(s => {
+      const [rr, cc] = s.split(',').map(Number);
+      return { r: rr, c: cc };
+    });
+  }
+
+  function eraseTriplesOnce(callback) {
+    const targets = collectAllTriples();
+    if (targets.length === 0) { callback(false); return; }
+
+    targets.forEach(({ r, c }) => {
+      const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+      td.style.background = '#ffcccc';
+    });
+
+    setTimeout(() => {
+      targets.forEach(({ r, c }) => {
+        board[r][c] = '';
+        const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+        td.textContent = '';
+        td.style.background = '';
+      });
+      callback(true);
+    }, 500);
+  }
+
+  function tripleCascade(finalCallback) {
+    if (gameOver) return;
+
+    eraseTriplesOnce((erased) => {
+      if (!erased) { finalCallback(); return; }
+      gravityStep(direction);
+      setTimeout(() => {
+        if (checkWinAfterDelayEnd()) return;
+        tripleCascade(finalCallback);
+      }, 500);
+    });
+  }
+}
+
+// 4つ以上揃った勝利セルを取得
+function getWinCells(player) {
+    const directions = [
+        { dr: 0, dc: 1 }, { dr: 1, dc: 0 }, { dr: 1, dc: 1 }, { dr: 1, dc: -1 }
+    ];
+    for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+            if (board[r][c] !== player) continue;
+            for (let dir of directions) {
+                let cells = [{ r, c }];
+                let nr = r + dir.dr;
+                let nc = c + dir.dc;
+                while (nr >= 0 && nr < SIZE && nc >= 0 && nc < SIZE && board[nr][nc] === player) {
+                    cells.push({ r: nr, c: nc });
+                    nr += dir.dr;
+                    nc += dir.dc;
                 }
-                for (let r = SIZE - 1; r >= 0; r--) {
-                    let val = stack[SIZE - 1 - r] || '';
-                    if (board[r][c] !== val) changed = true;
-                    board[r][c] = val;
-                    document.querySelector(`[data-row='${r}'][data-col='${c}']`).textContent = val;
-                }
-            }
-        } else if (direction === 'up') {
-            for (let c = 0; c < SIZE; c++) {
-                let stack = [];
-                for (let r = 0; r < SIZE; r++) {
-                    if (board[r][c] !== '') stack.push(board[r][c]);
-                }
-                for (let r = 0; r < SIZE; r++) {
-                    let val = stack[r] || '';
-                    if (board[r][c] !== val) changed = true;
-                    board[r][c] = val;
-                    document.querySelector(`[data-row='${r}'][data-col='${c}']`).textContent = val;
-                }
-            }
-        } else if (direction === 'left') {
-            for (let r = 0; r < SIZE; r++) {
-                let stack = [];
-                for (let c = 0; c < SIZE; c++) {
-                    if (board[r][c] !== '') stack.push(board[r][c]);
-                }
-                for (let c = 0; c < SIZE; c++) {
-                    let val = stack[c] || '';
-                    if (board[r][c] !== val) changed = true;
-                    board[r][c] = val;
-                    document.querySelector(`[data-row='${r}'][data-col='${c}']`).textContent = val;
-                }
-            }
-        } else if (direction === 'right') {
-            for (let r = 0; r < SIZE; r++) {
-                let stack = [];
-                for (let c = SIZE - 1; c >= 0; c--) {
-                    if (board[r][c] !== '') stack.push(board[r][c]);
-                }
-                for (let c = SIZE - 1; c >= 0; c--) {
-                    let val = stack[SIZE - 1 - c] || '';
-                    if (board[r][c] !== val) changed = true;
-                    board[r][c] = val;
-                    document.querySelector(`[data-row='${r}'][data-col='${c}']`).textContent = val;
-                }
+                if (cells.length >= 4) return cells;
             }
         }
-        return changed;
     }
-    function gravityLoop() {
+    return null;
+}
+
+// 勝利セルをハイライトして結果表示
+function highlightWin(player) {
+    const cells = getWinCells(player);
+    if (cells) {
+        cells.forEach(({ r, c }) => {
+            const td = document.querySelector(`[data-row='${r}'][data-col='${c}']`);
+            td.style.background = '#add8e6'; // 薄青
+            td.style.color = '#000';
+        });
         setTimeout(() => {
-            let erased = false;
-            for (let r = 0; r < SIZE; r++) {
-                for (let c = 0; c < SIZE; c++) {
-                    if (board[r][c] !== '') {
-                        erased = checkThree(r, c) || erased;
-                    }
-                }
-            }
-            if (erased) {
-                setTimeout(() => {
-                    gravityStep();
-                    setTimeout(() => {
-                        // 三つ消し後に埋めた直後、勝利判定を最優先で出す
-                        if (checkWin('〇')) {
-                            showResult('〇の勝利！（重力使用）');
-                            gameOver = true;
-                            return;
-                        }
-                        if (checkWin('×')) {
-                            showResult('×の勝利！（重力使用）');
-                            gameOver = true;
-                            return;
-                        }
-                        gravityLoop();
-                    }, 500);
-                }, 500);
-            } else {
-                let changed = gravityStep();
-                if (changed) {
-                    setTimeout(() => {
-                        // 埋めた直後にも勝利判定
-                        if (checkWin('〇')) {
-                            showResult('〇の勝利！（重力使用）');
-                            gameOver = true;
-                            return;
-                        }
-                        if (checkWin('×')) {
-                            showResult('×の勝利！（重力使用）');
-                            gameOver = true;
-                            return;
-                        }
-                        gravityLoop();
-                    }, 500);
-                } else {
-                    setTimeout(() => {
-                        if (isDraw()) {
-                            showResult('ドロー！（重力使用）');
-                            gameOver = true;
-                            return;
-                        }
-                    }, 500);
-                }
-            }
+            showResult(`${player}の勝利！`);
+            gameOver = true;
         }, 500);
     }
-    gravityStep();
-    gravityLoop();
 }
+
