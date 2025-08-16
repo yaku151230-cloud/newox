@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "marubatu.html",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/marubatu.html"
+    }
+  ]
+}
