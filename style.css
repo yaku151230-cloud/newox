@@ -1,60 +1,66 @@
-/* ------------------- PC版（デフォルト） ------------------- */
-#side-left, #side-right {
+/* PC版 */
+.pc-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+}
+#side-left {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: flex-end;
+    min-width: 180px;
+}
+#side-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 120px;
+}
+#board table, #board-mobile table {
+    border-collapse: collapse;
+    width: 600px;
+    height: 600px;
+}
+#board td, #board-mobile td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 48px;
 }
 
-#mobile-gravity {
+/* 初期状態: PC版表示, モバイル非表示 */
+.mobile-container {
     display: none;
 }
 
-/* ------------------- スマホ版 ------------------- */
+/* スマホ版 */
 @media (max-width: 700px) {
-    /* 左右パネル非表示 */
-    #side-left, #side-right {
-        display: none !important;
+    .pc-container {
+        display: none;
     }
-
-    /* ゲーム情報を盤面上に */
-    #game-info {
+    .mobile-container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
-        margin-bottom: 12px;
+        gap: 16px;
     }
-
-    #board {
-        width: 98vw !important;
+    #board-mobile table {
+        width: 98vw;
+        height: 98vw;
     }
-
-    #board table {
-        width: 98vw !important;
-        height: 98vw !important;
-        font-size: 7vw !important;
+    #board-mobile td {
+        width: 16vw;
+        height: 16vw;
+        font-size: 7vw;
     }
-
-    #board td {
-        width: 16vw !important;
-        height: 16vw !important;
-        font-size: 7vw !important;
-        padding: 0 !important;
-    }
-
-    /* モバイル版重力ボタン表示 */
-    #mobile-gravity {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        gap: 6px;
-        margin-top: 12px;
-        margin-bottom: 20px;
-    }
-
-    #mobile-gravity button {
+    #gravity-buttons-mobile button {
+        font-size: 8vw;
         width: 18vw;
         height: 18vw;
-        font-size: 8vw;
+        margin: 4px;
+    }
+    #gravity-buttons-mobile span {
+        font-size: 5vw;
+        margin-right: 4px;
     }
 }
