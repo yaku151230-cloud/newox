@@ -1,50 +1,8 @@
-/* ---------------------- PC用デフォルト ---------------------- */
-body {
-    margin: 0;
-    font-family: sans-serif;
-}
 
-.game-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-    margin-top: 40px;
-}
-
-#side-left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    min-width: 180px;
-}
-
-#side-left h1 {
-    margin-bottom: 40px;
-}
-
-#turn-info {
-    font-size: 28px;
-    font-weight: bold;
-}
-
-#rule-box {
-    margin-top: 18px;
-    font-size: 17px;
-    background: #f8f8f8;
-    border-radius: 8px;
-    padding: 12px;
-    max-width: 260px;
-    text-align: left;
-}
-
-#board-container table {
-    margin: 0 auto;
+/* PC版表示 */
+#board table {
     border-collapse: collapse;
-    width: 600px;
-    height: 600px;
 }
-
 #board td {
     width: 100px;
     height: 100px;
@@ -53,46 +11,37 @@ body {
     font-size: 48px;
 }
 
-#side-right {
+#side-left, #side-right {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    min-width: 120px;
+    gap: 10px;
 }
 
-#side-right div {
-    font-size: 22px;
-    font-weight: bold;
-    margin-bottom: 16px;
+/* 中央揃え */
+#board td {
+    text-align: center;
+    vertical-align: middle;
 }
 
-#side-right button {
-    font-size: 32px;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
+/* スマホ版非表示にするパネル */
+#mobile-top-panel, #mobile-bottom-panel {
+    display: none;
 }
 
-/* ---------------------- スマホ版 ---------------------- */
-#mobile-top-panel,
-#mobile-bottom-panel {
-    display: none; /* PCでは非表示 */
-}
-
+/* スマホ版表示 */
 @media (max-width: 700px) {
-    .game-container {
+    #side-left, #side-right {
+        display: none; /* PC版パネル非表示 */
+    }
+
+    #mobile-top-panel, #mobile-bottom-panel {
+        display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 20px;
+        gap: 8px;
     }
 
-    #side-left,
-    #side-right {
-        display: none; /* スマホでは非表示 */
-    }
-
-    /* 盤面を画面幅に合わせる */
-    #board-container table {
+    #board table {
         width: 98vw;
         height: 98vw;
     }
@@ -104,51 +53,25 @@ body {
         padding: 0;
     }
 
-    /* スマホ用パネル表示 */
-    #mobile-top-panel,
-    #mobile-bottom-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 98vw;
-    }
-
-    #mobile-top-panel h1 {
-        font-size: 6vw;
-        margin-bottom: 8px;
-        text-align: center;
-    }
-
-    #mobile-turn-info {
-        font-size: 5vw;
-        margin-bottom: 12px;
-        text-align: center;
-    }
-
-    #mobile-rule-box {
-        font-size: 4vw;
-        max-width: 98vw;
-        padding: 2vw;
-        margin-bottom: 16px;
-        background: #f8f8f8;
-        border-radius: 8px;
-    }
-
-    #mobile-bottom-panel div {
-        font-size: 5vw;
-        margin-bottom: 4px;
-    }
-
+    /* 重力ボタン大きめ */
     #mobile-bottom-panel button {
         font-size: 7vw;
         width: 18vw;
         height: 18vw;
-        margin: 2vw 2vw 0 2vw;
+        margin: 2vw;
     }
 
-    /* 盤面の文字中央揃え */
-    #board td {
-        text-align: center;
-        vertical-align: middle;
+    #rule-box-mobile {
+        font-size: 4vw;
+        padding: 2vw;
+        max-width: 95vw;
+    }
+
+    #mobile-top-panel h1 {
+        font-size: 6vw;
+    }
+
+    #turn-info-mobile {
+        font-size: 5vw;
     }
 }
