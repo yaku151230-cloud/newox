@@ -1,16 +1,45 @@
-/* PC版（デフォルト） */
+/* ------------------- PC版（デフォルト） ------------------- */
 #side-left, #side-right {
     display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
+
 #mobile-gravity {
     display: none;
 }
 
-/* スマホ版 */
+/* ------------------- スマホ版 ------------------- */
 @media (max-width: 700px) {
     /* 左右パネル非表示 */
     #side-left, #side-right {
         display: none !important;
+    }
+
+    /* ゲーム情報を盤面上に */
+    #game-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+    }
+
+    #board {
+        width: 98vw !important;
+    }
+
+    #board table {
+        width: 98vw !important;
+        height: 98vw !important;
+        font-size: 7vw !important;
+    }
+
+    #board td {
+        width: 16vw !important;
+        height: 16vw !important;
+        font-size: 7vw !important;
+        padding: 0 !important;
     }
 
     /* モバイル版重力ボタン表示 */
@@ -18,34 +47,11 @@
         display: flex !important;
         justify-content: center;
         align-items: center;
-        gap: 10px;
+        gap: 6px;
         margin-top: 12px;
         margin-bottom: 20px;
     }
 
-    /* ゲーム情報を盤面上に */
-    .game-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-
-    #board {
-        width: 98vw;
-    }
-    #board table {
-        width: 98vw;
-        height: 98vw;
-        font-size: 7vw;
-    }
-    #board td {
-        width: 16vw;
-        height: 16vw;
-        font-size: 7vw;
-        padding: 0;
-    }
-
-    /* モバイルボタンサイズ */
     #mobile-gravity button {
         width: 18vw;
         height: 18vw;
