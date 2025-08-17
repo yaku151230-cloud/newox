@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- PC版用パネル -->
     <div class="game-container">
-        <div id="side-left">
-            <h1>New 〇✕ゲーム</h1>
+        <!-- PC版とスマホ版で共通に使うゲーム情報 -->
+        <div id="game-info">
+            <h1 id="game-title">New 〇✕ゲーム</h1>
             <span id="turn-info">現在のターン: 〇</span>
             <div id="rule-box">
                 <b>ルール説明</b>
@@ -24,6 +24,7 @@
             </div>
         </div>
 
+        <!-- 盤面 -->
         <div id="board">
             <table border="1" cellspacing="0" cellpadding="0">
                 <tbody>
@@ -36,7 +37,6 @@
                         <td data-row="0" data-col="4"></td>
                         <td data-row="0" data-col="5"></td>
                     </tr>
-                    <!-- 以下5行同じ -->
                     <tr>
                         <td data-row="1" data-col="0"></td>
                         <td data-row="1" data-col="1"></td>
@@ -81,6 +81,10 @@
             </table>
         </div>
 
+        <!-- PC版：左右パネル -->
+        <div id="side-left">
+            <!-- PC版用情報はここに残す -->
+        </div>
         <div id="side-right">
             <div>重力</div>
             <button id="gravity-up">↑</button>
@@ -88,15 +92,15 @@
             <button id="gravity-left">←</button>
             <button id="gravity-right">→</button>
         </div>
-    </div>
 
-    <!-- スマホ版用重力ボタン -->
-    <div id="mobile-gravity">
-        <div>重力</div>
-        <button id="mobile-gravity-up">↑</button>
-        <button id="mobile-gravity-down">↓</button>
-        <button id="mobile-gravity-left">←</button>
-        <button id="mobile-gravity-right">→</button>
+        <!-- スマホ版重力ボタン（盤面下に表示） -->
+        <div id="mobile-gravity">
+            <div>重力</div>
+            <button id="mobile-gravity-up">↑</button>
+            <button id="mobile-gravity-down">↓</button>
+            <button id="mobile-gravity-left">←</button>
+            <button id="mobile-gravity-right">→</button>
+        </div>
     </div>
 
     <div id="result"></div>
