@@ -1,79 +1,113 @@
 /* 共通スタイル */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+  margin: 0;
+  font-family: sans-serif;
 }
-
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+}
+#side-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 180px;
+}
+#side-left h1 {
+  margin-bottom: 40px;
+}
+#turn-info {
+  font-size: 28px;
+  font-weight: bold;
+}
+#rule-box {
+  margin-top: 18px;
+  font-size: 17px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 12px;
+  max-width: 260px;
+  text-align: left;
+}
 #board table {
-    border-collapse: collapse;
-    width: 600px;
-    height: 600px;
+  border-collapse: collapse;
 }
-
 #board td {
-    border: 1px solid #000;
-    text-align: center;
-    vertical-align: middle; /* 中央揃え */
-    font-size: 48px;
-    width: 100px;
-    height: 100px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 48px;
+  border: 1px solid #000;
+}
+#side-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 120px;
+}
+#side-right button {
+  font-size: 32px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+.gravity-label {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
-#side-left, #side-right {
+/* スマホ版非表示 */
+#mobile-top-panel, #mobile-gravity-buttons {
+  display: none;
+}
+
+/* スマホ版レイアウト */
+@media (max-width: 700px) {
+  .game-wrapper {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 20px;
+  }
+  #side-left, #side-right {
+    display: none;
+  }
+  #mobile-top-panel, #mobile-gravity-buttons {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-#side-left h1, #side-right div {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-#side-right button {
-    font-size: 32px;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 10px;
-}
-
-/* PC版：スマホ用パネル非表示 */
-#mobile-top-panel {
-    display: none;
-}
-
-/* スマホ版 */
-@media (max-width: 700px) {
-    /* PCサイド非表示 */
-    #side-left, #side-right {
-        display: none;
-    }
-
-    /* スマホ用パネル表示 */
-    #mobile-top-panel {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 16px;
-    }
-
-    #board table {
-        width: 98vw;
-        height: 98vw;
-    }
-
-    #board td {
-        width: 16vw;
-        height: 16vw;
-        font-size: 7vw;
-    }
-
-    #gravity-buttons-mobile button {
-        font-size: 6vw;
-        width: 14vw;
-        height: 14vw;
-        margin-bottom: 2vw;
-    }
+    align-items: center;
+    width: 98vw;
+  }
+  #board table {
+    width: 98vw;
+    height: 98vw;
+  }
+  #board td {
+    width: 16vw;
+    height: 16vw;
+    font-size: 7vw;
+  }
+  #mobile-top-panel h1 {
+    font-size: 6vw;
+    margin-bottom: 8px;
+  }
+  #mobile-turn-info {
+    font-size: 5vw;
+    margin-bottom: 8px;
+  }
+  #mobile-rule-box {
+    font-size: 4vw;
+    padding: 2vw;
+    margin-bottom: 12px;
+  }
+  #mobile-gravity-buttons button {
+    font-size: 14vw;
+    width: 14vw;
+    height: 14vw;
+    margin: 2vw;
+  }
 }
