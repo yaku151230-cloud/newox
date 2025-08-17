@@ -6,88 +6,85 @@
     <title>〇× 6x6 ゲーム</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>    
-    <div style="display: flex; justify-content: center; align-items: flex-start; gap: 40px; margin-top: 40px;">
-        <div id="side-left" style="display: flex; flex-direction: column; align-items: flex-end; min-width: 180px;">
-            <h1 style="margin-bottom: 40px;">New 〇✕ゲーム</h1>
-            <span id="turn-info" style="font-size: 28px; font-weight: bold;">現在のターン: 〇</span>
-            <div id="rule-box" style="margin-top: 18px; font-size: 17px; background: #f8f8f8; border-radius: 8px; padding: 12px; max-width: 260px; text-align: left;">
-              <b>ルール説明</b>
-              <ul style="margin: 8px 0 0 18px; padding: 0; list-style-type: disc;">
-                <li>〇と×が交互に置いていきます</li>
-                <li>4つ以上並ぶと勝ちです</li>
-                <li>3つちょうど並ぶと盤面から消えます</li>
-                <li>一人一回コマを置く代わりに重力が使えます</li>
-                <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
-              </ul>
-            </div>
-            <div id="left-panel"></div>
-        </div>
+<body>
+    <div class="game-container">
+        <!-- ゲーム名とターン情報 -->
+        <h1 class="game-title">New 〇✕ゲーム</h1>
+        <span id="turn-info" class="turn-info">現在のターン: 〇</span>
+
+        <!-- 盤面 -->
         <div id="board">
-            <table border="1" cellspacing="0" cellpadding="0" style="margin: 0 auto; border-collapse: collapse; width: 600px; height: 600px;">
+            <table border="1" cellspacing="0" cellpadding="0">
                 <tbody>
+                    <!-- 6x6 のセルを自動生成する場合は script.js 側でも可 -->
                     <tr>
-                        <td data-row="0" data-col="0" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="0" data-col="1" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="0" data-col="2" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="0" data-col="3" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="0" data-col="4" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="0" data-col="5" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
+                        <td data-row="0" data-col="0"></td>
+                        <td data-row="0" data-col="1"></td>
+                        <td data-row="0" data-col="2"></td>
+                        <td data-row="0" data-col="3"></td>
+                        <td data-row="0" data-col="4"></td>
+                        <td data-row="0" data-col="5"></td>
                     </tr>
                     <tr>
-                        <td data-row="1" data-col="0" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="1" data-col="1" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="1" data-col="2" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="1" data-col="3" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="1" data-col="4" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="1" data-col="5" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
+                        <td data-row="1" data-col="0"></td>
+                        <td data-row="1" data-col="1"></td>
+                        <td data-row="1" data-col="2"></td>
+                        <td data-row="1" data-col="3"></td>
+                        <td data-row="1" data-col="4"></td>
+                        <td data-row="1" data-col="5"></td>
                     </tr>
                     <tr>
-                        <td data-row="2" data-col="0" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="2" data-col="1" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="2" data-col="2" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="2" data-col="3" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="2" data-col="4" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="2" data-col="5" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
+                        <td data-row="2" data-col="0"></td>
+                        <td data-row="2" data-col="1"></td>
+                        <td data-row="2" data-col="2"></td>
+                        <td data-row="2" data-col="3"></td>
+                        <td data-row="2" data-col="4"></td>
+                        <td data-row="2" data-col="5"></td>
                     </tr>
                     <tr>
-                        <td data-row="3" data-col="0" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="3" data-col="1" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="3" data-col="2" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="3" data-col="3" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="3" data-col="4" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="3" data-col="5" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
+                        <td data-row="3" data-col="0"></td>
+                        <td data-row="3" data-col="1"></td>
+                        <td data-row="3" data-col="2"></td>
+                        <td data-row="3" data-col="3"></td>
+                        <td data-row="3" data-col="4"></td>
+                        <td data-row="3" data-col="5"></td>
                     </tr>
                     <tr>
-                        <td data-row="4" data-col="0" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="4" data-col="1" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="4" data-col="2" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="4" data-col="3" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="4" data-col="4" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="4" data-col="5" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
+                        <td data-row="4" data-col="0"></td>
+                        <td data-row="4" data-col="1"></td>
+                        <td data-row="4" data-col="2"></td>
+                        <td data-row="4" data-col="3"></td>
+                        <td data-row="4" data-col="4"></td>
+                        <td data-row="4" data-col="5"></td>
                     </tr>
                     <tr>
-                        <td data-row="5" data-col="0" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="5" data-col="1" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="5" data-col="2" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="5" data-col="3" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="5" data-col="4" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
-                        <td data-row="5" data-col="5" style="width: 100px; height: 100px; text-align: center; font-size: 48px;"></td>
+                        <td data-row="5" data-col="0"></td>
+                        <td data-row="5" data-col="1"></td>
+                        <td data-row="5" data-col="2"></td>
+                        <td data-row="5" data-col="3"></td>
+                        <td data-row="5" data-col="4"></td>
+                        <td data-row="5" data-col="5"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div id="side-right" style="display: flex; flex-direction: column; align-items: flex-start; min-width: 120px;">
-            <div style="font-size: 22px; font-weight: bold; margin-bottom: 16px;">重力</div>
-            <button id="gravity-up" style="font-size: 32px; width: 60px; height: 60px; margin-bottom: 10px;">↑</button>
-            <button id="gravity-down" style="font-size: 32px; width: 60px; height: 60px; margin-bottom: 10px;">↓</button>
-            <button id="gravity-left" style="font-size: 32px; width: 60px; height: 60px; margin-bottom: 10px;">←</button>
-            <button id="gravity-right" style="font-size: 32px; width: 60px; height: 60px; margin-bottom: 10px;">→</button>
+
+        <!-- 重力ボタン -->
+        <div id="gravity-buttons">
+            <button id="gravity-up">↑</button>
+            <button id="gravity-down">↓</button>
+            <button id="gravity-left">←</button>
+            <button id="gravity-right">→</button>
         </div>
+
+        <!-- 結果表示 -->
+        <div id="result"></div>
     </div>
-    <div id="result"></div>
+
     <script src="script.js"></script>
 </body>
 
+
 </html>
+
 
