@@ -1,94 +1,54 @@
-/* 共通スタイル（PCとスマホ共通） */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-#board table {
-  border-collapse: collapse;
-}
-
-#board td {
-  text-align: center;
-  font-size: 48px;
-  width: 100px;
-  height: 100px;
-}
-
+/* PC版（デフォルト） */
 #side-left, #side-right {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+}
+#mobile-gravity {
+    display: none;
 }
 
-/* スマホ版レイアウト */
+/* スマホ版 */
 @media (max-width: 700px) {
-  /* 全体を縦並びに */
-  div[style*="display: flex; justify-content: center; align-items: flex-start"] {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 20px !important;
-  }
+    /* 左右パネル非表示 */
+    #side-left, #side-right {
+        display: none !important;
+    }
 
-  #board {
-    width: 98vw !important;
-    max-width: 100vw !important;
-  }
+    /* モバイル版重力ボタン表示 */
+    #mobile-gravity {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 12px;
+        margin-bottom: 20px;
+    }
 
-  #board table {
-    width: 98vw !important;
-    height: 98vw !important;
-    font-size: 7vw !important;
-  }
+    /* ゲーム情報を盤面上に */
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
 
-  #board td {
-    width: 16vw !important;
-    height: 16vw !important;
-    font-size: 7vw !important;
-  }
+    #board {
+        width: 98vw;
+    }
+    #board table {
+        width: 98vw;
+        height: 98vw;
+        font-size: 7vw;
+    }
+    #board td {
+        width: 16vw;
+        height: 16vw;
+        font-size: 7vw;
+        padding: 0;
+    }
 
-  #side-left, #side-right {
-    min-width: 0 !important;
-    max-width: 98vw !important;
-    align-items: center !important;
-    margin-bottom: 16px;
-    flex-direction: column !important;
-  }
-
-  #side-left h1 {
-    font-size: 6vw !important;
-    margin-bottom: 8px !important;
-  }
-
-  #turn-info {
-    font-size: 5vw !important;
-    margin-bottom: 12px !important;
-  }
-
-  #rule-box {
-    font-size: 4vw !important;
-    max-width: 98vw !important;
-    padding: 2vw !important;
-    margin-bottom: 16px !important;
-  }
-
-  /* 重力ボタンと文字 */
-  #gravity-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  #gravity-container span {
-    font-size: 5vw !important;
-    font-weight: bold;
-  }
-
-  #gravity-container button {
-    font-size: 7vw !important;
-    width: 18vw !important;
-    height: 18vw !important;
-    margin-bottom: 2vw !important;
-  }
+    /* モバイルボタンサイズ */
+    #mobile-gravity button {
+        width: 18vw;
+        height: 18vw;
+        font-size: 8vw;
+    }
 }
