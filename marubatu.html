@@ -1,125 +1,124 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>〇× 6x6 ゲーム</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>〇× 6x6 ゲーム</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="game-container">
 
-<div class="game-wrapper">
-
-    <!-- PC版左サイドパネル -->
-    <div id="side-left">
-        <h1 class="game-title">New 〇✕ゲーム</h1>
-        <span id="turn-info">現在のターン: 〇</span>
-        <div id="rule-box">
-            <b>ルール説明</b>
-            <ul>
-                <li>〇と×が交互に置いていきます</li>
-                <li>4つ以上並ぶと勝ちです</li>
-                <li>3つちょうど並ぶと盤面から消えます</li>
-                <li>一人一回コマを置く代わりに重力が使えます</li>
-                <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
-            </ul>
+        <!-- 左サイドパネル（PC版用） -->
+        <div id="side-left">
+            <h1>New 〇✕ゲーム</h1>
+            <span id="turn-info">現在のターン: 〇</span>
+            <div id="rule-box">
+                <b>ルール説明</b>
+                <ul>
+                    <li>〇と×が交互に置いていきます</li>
+                    <li>4つ以上並ぶと勝ちです</li>
+                    <li>3つちょうど並ぶと盤面から消えます</li>
+                    <li>一人一回コマを置く代わりに重力が使えます</li>
+                    <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <!-- 盤面 -->
-    <div id="board">
-        <table border="1" cellspacing="0" cellpadding="0">
-            <tbody>
-                <!-- 6x6 セル -->
-                <tr>
-                    <td data-row="0" data-col="0"></td>
-                    <td data-row="0" data-col="1"></td>
-                    <td data-row="0" data-col="2"></td>
-                    <td data-row="0" data-col="3"></td>
-                    <td data-row="0" data-col="4"></td>
-                    <td data-row="0" data-col="5"></td>
-                </tr>
-                <tr>
-                    <td data-row="1" data-col="0"></td>
-                    <td data-row="1" data-col="1"></td>
-                    <td data-row="1" data-col="2"></td>
-                    <td data-row="1" data-col="3"></td>
-                    <td data-row="1" data-col="4"></td>
-                    <td data-row="1" data-col="5"></td>
-                </tr>
-                <tr>
-                    <td data-row="2" data-col="0"></td>
-                    <td data-row="2" data-col="1"></td>
-                    <td data-row="2" data-col="2"></td>
-                    <td data-row="2" data-col="3"></td>
-                    <td data-row="2" data-col="4"></td>
-                    <td data-row="2" data-col="5"></td>
-                </tr>
-                <tr>
-                    <td data-row="3" data-col="0"></td>
-                    <td data-row="3" data-col="1"></td>
-                    <td data-row="3" data-col="2"></td>
-                    <td data-row="3" data-col="3"></td>
-                    <td data-row="3" data-col="4"></td>
-                    <td data-row="3" data-col="5"></td>
-                </tr>
-                <tr>
-                    <td data-row="4" data-col="0"></td>
-                    <td data-row="4" data-col="1"></td>
-                    <td data-row="4" data-col="2"></td>
-                    <td data-row="4" data-col="3"></td>
-                    <td data-row="4" data-col="4"></td>
-                    <td data-row="4" data-col="5"></td>
-                </tr>
-                <tr>
-                    <td data-row="5" data-col="0"></td>
-                    <td data-row="5" data-col="1"></td>
-                    <td data-row="5" data-col="2"></td>
-                    <td data-row="5" data-col="3"></td>
-                    <td data-row="5" data-col="4"></td>
-                    <td data-row="5" data-col="5"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- PC版右サイドパネル -->
-    <div id="side-right">
-        <div>重力</div>
-        <button id="gravity-up">↑</button>
-        <button id="gravity-down">↓</button>
-        <button id="gravity-left">←</button>
-        <button id="gravity-right">→</button>
-    </div>
-
-    <!-- スマホ用パネル（PC版非表示） -->
-    <div id="mobile-top-panel">
-        <h1 class="game-title">New 〇✕ゲーム</h1>
-        <span id="turn-info">現在のターン: 〇</span>
-        <div id="rule-box">
-            <b>ルール説明</b>
-            <ul>
-                <li>〇と×が交互に置いていきます</li>
-                <li>4つ以上並ぶと勝ちです</li>
-                <li>3つちょうど並ぶと盤面から消えます</li>
-                <li>一人一回コマを置く代わりに重力が使えます</li>
-                <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
-            </ul>
+        <!-- 盤面 -->
+        <div id="board">
+            <table border="1" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <!-- 6x6のセル -->
+                    <tr>
+                        <td data-row="0" data-col="0"></td>
+                        <td data-row="0" data-col="1"></td>
+                        <td data-row="0" data-col="2"></td>
+                        <td data-row="0" data-col="3"></td>
+                        <td data-row="0" data-col="4"></td>
+                        <td data-row="0" data-col="5"></td>
+                    </tr>
+                    <tr>
+                        <td data-row="1" data-col="0"></td>
+                        <td data-row="1" data-col="1"></td>
+                        <td data-row="1" data-col="2"></td>
+                        <td data-row="1" data-col="3"></td>
+                        <td data-row="1" data-col="4"></td>
+                        <td data-row="1" data-col="5"></td>
+                    </tr>
+                    <tr>
+                        <td data-row="2" data-col="0"></td>
+                        <td data-row="2" data-col="1"></td>
+                        <td data-row="2" data-col="2"></td>
+                        <td data-row="2" data-col="3"></td>
+                        <td data-row="2" data-col="4"></td>
+                        <td data-row="2" data-col="5"></td>
+                    </tr>
+                    <tr>
+                        <td data-row="3" data-col="0"></td>
+                        <td data-row="3" data-col="1"></td>
+                        <td data-row="3" data-col="2"></td>
+                        <td data-row="3" data-col="3"></td>
+                        <td data-row="3" data-col="4"></td>
+                        <td data-row="3" data-col="5"></td>
+                    </tr>
+                    <tr>
+                        <td data-row="4" data-col="0"></td>
+                        <td data-row="4" data-col="1"></td>
+                        <td data-row="4" data-col="2"></td>
+                        <td data-row="4" data-col="3"></td>
+                        <td data-row="4" data-col="4"></td>
+                        <td data-row="4" data-col="5"></td>
+                    </tr>
+                    <tr>
+                        <td data-row="5" data-col="0"></td>
+                        <td data-row="5" data-col="1"></td>
+                        <td data-row="5" data-col="2"></td>
+                        <td data-row="5" data-col="3"></td>
+                        <td data-row="5" data-col="4"></td>
+                        <td data-row="5" data-col="5"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+        <!-- 右サイドパネル（PC版用） -->
+        <div id="side-right">
+            <div>重力</div>
+            <button id="gravity-up">↑</button>
+            <button id="gravity-down">↓</button>
+            <button id="gravity-left">←</button>
+            <button id="gravity-right">→</button>
+        </div>
+
+        <!-- 結果表示 -->
+        <div id="result"></div>
+
+        <!-- スマホ版用パネル（非表示PC） -->
+        <div id="mobile-top-panel">
+            <h1>New 〇✕ゲーム</h1>
+            <span id="turn-info-mobile">現在のターン: 〇</span>
+            <div id="rule-box-mobile">
+                <b>ルール説明</b>
+                <ul>
+                    <li>〇と×が交互に置いていきます</li>
+                    <li>4つ以上並ぶと勝ちです</li>
+                    <li>3つちょうど並ぶと盤面から消えます</li>
+                    <li>一人一回コマを置く代わりに重力が使えます</li>
+                    <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
+                </ul>
+            </div>
+            <div id="gravity-buttons-mobile">
+                <div>重力</div>
+                <button id="gravity-up">↑</button>
+                <button id="gravity-down">↓</button>
+                <button id="gravity-left">←</button>
+                <button id="gravity-right">→</button>
+            </div>
+        </div>
+
     </div>
 
-    <div id="mobile-bottom-panel">
-        <div>重力</div>
-        <button id="gravity-up">↑</button>
-        <button id="gravity-down">↓</button>
-        <button id="gravity-left">←</button>
-        <button id="gravity-right">→</button>
-    </div>
-
-</div>
-
-<div id="result"></div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
