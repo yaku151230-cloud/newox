@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+    <h1>New 〇✕ゲーム</h1>
+    <span id="turn-info">現在のターン: 〇</span>
+    <table id="board">...</table>
+    <div id="gravity-buttons">
+        <button id="gravity-up">↑</button>
+        <button id="gravity-down">↓</button>
+        <button id="gravity-left">←</button>
+        <button id="gravity-right">→</button>
+    </div>
+</div>
     <div style="display: flex; justify-content: center; align-items: flex-start; gap: 40px; margin-top: 40px;">
         <div id="side-left" style="display: flex; flex-direction: column; align-items: flex-end; min-width: 180px;">
             <h1 style="margin-bottom: 40px;">New 〇✕ゲーム</h1>
@@ -88,4 +99,5 @@
     <div id="result"></div>
     <script src="script.js"></script>
 </body>
+
 </html>
