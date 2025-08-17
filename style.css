@@ -1,77 +1,98 @@
+/* --- 共通 --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
 
-/* PC版表示 */
+/* 盤面共通 */
 #board table {
     border-collapse: collapse;
+    width: 600px;
+    height: 600px;
 }
+
 #board td {
+    border: 1px solid #000;
     width: 100px;
     height: 100px;
-    text-align: center;
-    vertical-align: middle;
+    text-align: center; /* 横中央 */
+    vertical-align: middle; /* 縦中央 */
     font-size: 48px;
 }
 
-#side-left, #side-right {
+/* PC版レイアウト */
+#side-left {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-end;
+    min-width: 180px;
 }
 
-/* 中央揃え */
-#board td {
-    text-align: center;
-    vertical-align: middle;
+#side-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 120px;
 }
 
-/* スマホ版非表示にするパネル */
-#mobile-top-panel, #mobile-bottom-panel {
-    display: none;
+#mobile-panel {
+    display: none; /* PC版では非表示 */
 }
 
-/* スマホ版表示 */
+/* --- スマホ版 --- */
 @media (max-width: 700px) {
+    /* PC版非表示 */
     #side-left, #side-right {
-        display: none; /* PC版パネル非表示 */
+        display: none;
     }
 
-    #mobile-top-panel, #mobile-bottom-panel {
+    #mobile-panel {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: 16px;
+        width: 100%;
+        padding: 0 2vw;
+    }
+
+    #board {
+        width: 98vw;
+        max-width: 98vw;
     }
 
     #board table {
         width: 98vw;
         height: 98vw;
+        font-size: 7vw;
     }
 
     #board td {
         width: 16vw;
         height: 16vw;
         font-size: 7vw;
-        padding: 0;
     }
 
-    /* 重力ボタン大きめ */
-    #mobile-bottom-panel button {
-        font-size: 7vw;
+    #gravity-buttons-mobile {
+        display: flex;
+        justify-content: center;
+        gap: 2vw;
+        margin-top: 12px;
+    }
+
+    #gravity-buttons-mobile button {
+        font-size: 8vw;
         width: 18vw;
         height: 18vw;
-        margin: 2vw;
     }
 
-    #rule-box-mobile {
-        font-size: 4vw;
-        padding: 2vw;
-        max-width: 95vw;
-    }
-
-    #mobile-top-panel h1 {
+    #mobile-panel h1 {
         font-size: 6vw;
     }
-
     #turn-info-mobile {
         font-size: 5vw;
+    }
+    #rule-box-mobile {
+        font-size: 4vw;
     }
 }
