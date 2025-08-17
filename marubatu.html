@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <!-- パソコン版左パネル -->
+    <div class="game-wrapper">
+
+        <!-- PC版サイドパネル -->
         <div id="side-left">
             <h1>New 〇✕ゲーム</h1>
             <span id="turn-info">現在のターン: 〇</span>
@@ -28,7 +29,7 @@
         <div id="board">
             <table border="1" cellspacing="0" cellpadding="0">
                 <tbody>
-                    <!-- 6x6セル -->
+                    <!-- 6x6 のセル -->
                     <tr>
                         <td data-row="0" data-col="0"></td>
                         <td data-row="0" data-col="1"></td>
@@ -81,7 +82,7 @@
             </table>
         </div>
 
-        <!-- パソコン版右パネル（重力ボタン） -->
+        <!-- PC版右側重力ボタン -->
         <div id="side-right">
             <div>重力</div>
             <button id="gravity-up">↑</button>
@@ -90,8 +91,8 @@
             <button id="gravity-right">→</button>
         </div>
 
-        <!-- スマホ版上パネル（PC版パネルは非表示） -->
-        <div id="mobile-top-panel">
+        <!-- スマホ版パネル -->
+        <div id="mobile-panel">
             <h1>New 〇✕ゲーム</h1>
             <span id="turn-info-mobile">現在のターン: 〇</span>
             <div id="rule-box-mobile">
@@ -104,20 +105,18 @@
                     <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
                 </ul>
             </div>
+            <div id="gravity-buttons-mobile">
+                <!-- PC版と同じIDを使用 -->
+                <button id="gravity-up">↑</button>
+                <button id="gravity-down">↓</button>
+                <button id="gravity-left">←</button>
+                <button id="gravity-right">→</button>
+            </div>
         </div>
 
-        <!-- スマホ版下パネル -->
-        <div id="mobile-bottom-panel">
-            <div>重力</div>
-            <button id="gravity-up">↑</button>
-            <button id="gravity-down">↓</button>
-            <button id="gravity-left">←</button>
-            <button id="gravity-right">→</button>
-        </div>
-
-        <div id="result"></div>
     </div>
 
+    <div id="result"></div>
     <script src="script.js"></script>
 </body>
 </html>
