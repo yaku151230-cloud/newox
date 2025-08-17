@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
-        <!-- PC版とスマホ版で共通に使うゲーム情報 -->
-        <div id="game-info">
-            <h1 id="game-title">New 〇✕ゲーム</h1>
+    <!-- PC版サイドパネル付き -->
+    <div class="pc-container">
+        <div id="side-left">
+            <h1>New 〇✕ゲーム</h1>
             <span id="turn-info">現在のターン: 〇</span>
             <div id="rule-box">
                 <b>ルール説明</b>
@@ -19,16 +19,15 @@
                     <li>4つ以上並ぶと勝ちです</li>
                     <li>3つちょうど並ぶと盤面から消えます</li>
                     <li>一人一回コマを置く代わりに重力が使えます</li>
-                    <li>重力：盤面にあるコマを上下左右の任意の方向に寄せることができます</li>
+                    <li>重力：盤面にあるコマを上下左右に寄せられます</li>
                 </ul>
             </div>
         </div>
-
-        <!-- 盤面 -->
         <div id="board">
             <table border="1" cellspacing="0" cellpadding="0">
                 <tbody>
                     <!-- 6x6セル -->
+                    <!-- ここは既存のtd構造をコピー -->
                     <tr>
                         <td data-row="0" data-col="0"></td>
                         <td data-row="0" data-col="1"></td>
@@ -80,11 +79,6 @@
                 </tbody>
             </table>
         </div>
-
-        <!-- PC版：左右パネル -->
-        <div id="side-left">
-            <!-- PC版用情報はここに残す -->
-        </div>
         <div id="side-right">
             <div>重力</div>
             <button id="gravity-up">↑</button>
@@ -92,14 +86,33 @@
             <button id="gravity-left">←</button>
             <button id="gravity-right">→</button>
         </div>
+    </div>
 
-        <!-- スマホ版重力ボタン（盤面下に表示） -->
-        <div id="mobile-gravity">
-            <div>重力</div>
-            <button id="mobile-gravity-up">↑</button>
-            <button id="mobile-gravity-down">↓</button>
-            <button id="mobile-gravity-left">←</button>
-            <button id="mobile-gravity-right">→</button>
+    <!-- スマホ版用縦並びパネル -->
+    <div class="mobile-container">
+        <h1 class="game-title">New 〇✕ゲーム</h1>
+        <span id="turn-info-mobile">現在のターン: 〇</span>
+        <div id="rule-box-mobile">
+            <b>ルール説明</b>
+            <ul>
+                <li>〇と×が交互に置いていきます</li>
+                <li>4つ以上並ぶと勝ちです</li>
+                <li>3つちょうど並ぶと盤面から消えます</li>
+                <li>一人一回コマを置く代わりに重力が使えます</li>
+                <li>重力：盤面にあるコマを上下左右に寄せられます</li>
+            </ul>
+        </div>
+        <div id="board-mobile">
+            <table border="1" cellspacing="0" cellpadding="0">
+                <!-- 6x6セルをPC版と同じ -->
+            </table>
+        </div>
+        <div id="gravity-buttons-mobile">
+            <span>重力</span>
+            <button id="gravity-up-mobile">↑</button>
+            <button id="gravity-down-mobile">↓</button>
+            <button id="gravity-left-mobile">←</button>
+            <button id="gravity-right-mobile">→</button>
         </div>
     </div>
 
